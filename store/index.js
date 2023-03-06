@@ -25,7 +25,8 @@ export const actions = {
                 throw new Error('Error Fetching Users');
             }
 
-            commit('setUsers', response.json());
+            const users = await response.json();
+            commit('setUsers', users);
         }
 
         return state.users;
@@ -42,7 +43,8 @@ export const actions = {
                 throw new Error('Error Fetching Rotas');
             }
 
-            commit('setRotas', response.json());
+            const rotas = await response.json();
+            commit('setRotas', rotas);
         }
 
         return state.rotas;
