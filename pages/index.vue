@@ -14,14 +14,9 @@
             </v-card-text>
             <v-card-actions class="d-flex justify-end">
                 <v-btn
-                    hide-details
-                    outlined
-                    v-text="toggleLabel"
-                    @click="changeDisplay"
-                />
-                <v-btn
-                    hide-details
-                    class="success black--text"
+                    depressed
+                    color="success"
+                    :loading="loadingRotas"
                     @click="getFilteredAndFormattedRotas"
                 >
                     Get Rotas
