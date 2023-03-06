@@ -76,9 +76,12 @@ export default {
         }
     },
 
-    created() {
-        this.getRotas();
-        this.getUsers();
+    async created() {
+        await Promise.all([
+            this.getUsers(),
+            this.getRotas(),
+        ])
+        this.getFilteredAndFormattedRotas();
     },
 
     methods: {
