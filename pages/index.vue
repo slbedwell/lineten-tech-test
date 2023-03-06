@@ -91,6 +91,7 @@ export default {
             this.displayCalendar = !this.displayCalendar;
         },
         async getRotas() {
+            this.loadingRotas = true;
             try {
                 const response = await this.$store.dispatch('getRotas');
                 if (!response) {
@@ -98,10 +99,11 @@ export default {
                 }
 
                 this.rotas = response;
-                this.$dialog.notify.success('Loaded Rotas');
+                this.$dialog.notify.success('Fetched Rotas From Server');
             } catch (error) {
-                this.$dialog.notify.error(error);
+                this.$dialog.notify.error(error.message);
             }
+            this.loadingRotas = false;
         },
         async getUsers() {
             this.loadingUsers = true;
@@ -118,18 +120,19 @@ export default {
 
                 this.$dialog.notify.success('Loaded Users');
             } catch (error) {
-                this.$dialog.notify.error(error);
+                this.$dialog.notify.error(error.message);
             }
             this.loadingUsers = false;
         },
         getFilteredAndFormattedRotas() {
+            this.$dialog.notify.info('Formatting Rotas...');
+
             if (!this.rotas.length) {
                 this.$dialog.notify.warning('No Rotas For Criteria');
                 return [];
             }
 
             this.loadingRotas = true;
-
             this.formattedRotas = this.rotas.filter(rota => {
                 // filter the rotas by the selected users and dates
                 let userIsSelected = true;
