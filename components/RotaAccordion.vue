@@ -4,7 +4,10 @@
             v-for="rota in rotas"
             :key="rota.id"
         >
-            <v-expansion-panel-header>
+            <v-expansion-panel-header
+                class="d-flex justify-center"
+                :class="getRotaHeaderColour(rota)"
+            >
                 {{ rota.user }}: {{ rota.date }} ({{ rota.type }})
             </v-expansion-panel-header>
             <v-expansion-panel-content>
@@ -27,6 +30,19 @@ export default {
             type: Array,
             default: () => [],
         },
+    },
+
+    methods: {
+        getRotaHeaderColour(rota) {
+            switch (rota.type) {
+                case 'morning':
+                    return 'primary--text';
+                case 'afternoon':
+                    return 'secondary--text';
+                default:
+                    return 'grey--text';
+            }
+        }
     },
 }
 </script>
