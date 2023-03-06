@@ -25,8 +25,39 @@
         </v-card>
 
         <v-card class="tt-full-width">
-            <LoadingOverlay v-model="loadingRotas" />
+            <v-card-title>
+                <v-toolbar
+                    color="primary"
+                    dark
+                    flat
+                    rounded
+                >
+                    <v-toolbar-title>Rotas</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        depressed
+                        color="success"
+                        @click="changeDisplay"
+                    >
+                        <v-icon left>
+                            {{ displayCalendar ? 'mdi-format-list-bulleted' : 'mdi-calendar' }}
+                        </v-icon>
+                        {{ displayToggleLabel }}
+                    </v-btn>
+                </v-toolbar>
+            </v-card-title>
             <v-card-text>
+                <LoadingOverlay v-model="loadingRotas" />
+                <v-alert
+                    type="info"
+                    text
+                >
+                    <h4>Key:</h4>
+                    <ul>
+                        <li>Morning Shifts will be shown in <span class="primary--text">blue</span></li>
+                        <li>Afternoon Shifts will be shown in <span class="secondary--text">grey</span></li>
+                    </ul>
+                </v-alert>
                 <component
                     v-if="formattedRotas.length"
                     :is="displayCalendar ? RotaCalendar : RotaAccordion"
@@ -53,9 +84,9 @@ import RotaCalendar from '../components/RotaCalendar.vue';
 
 export default {
     computed: {
-        toggleLabel() {
+        displayToggleLabel() {
             if (this.displayCalendar) {
-                return 'View As Accordion';
+                return 'View As List';
             }
             return 'View As Calendar';
         }
