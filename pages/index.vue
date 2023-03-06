@@ -138,10 +138,10 @@ export default {
                 }
 
                 if (this.dates.length) {
-                    const rotaStartDate = new Date(rota.start_date);
-                    const rotaEndDate = new Date(rota.end_date);
                     dateIsSelected = this.dates.some(date => {
-                        return date >= rotaStartDate && date <= rotaEndDate;
+                        // due to the quality of the data, the start and end dates are not always accurate 
+                        // best filtering comes from just checking the 'date' field
+                        return (date >= rota.startDate && date <= rota.endDate) || date === rota.date;
                     });
                 }
 
